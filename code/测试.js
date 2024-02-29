@@ -27,7 +27,7 @@ if (!requestScreenCapture()) {
 else{
     console.log("请求截图成功");
 }
-
+//提交测试
 var 说点什么 = className("android.view.View").descContains("说点什么").findOne();
     click(说点什么.bounds().centerX(), 说点什么.bounds().centerY())
     //sleep(1011);
