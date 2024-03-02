@@ -89,7 +89,7 @@ while(true){
     // sleep(500)
     // click(700,1700)
     //p10
-    utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
+    //utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
     utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0,  device.width, device.height);
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0,  device.width, device.height);
     desc("发送").click()
@@ -100,6 +100,8 @@ while(true){
  * 结束后回到聊天对话界面
  */
  function checkEvaluate(){
+     //复制
+    setClip("非常nice的买家，收货速度很快，沟通也很顺畅，爱了爱了~")
     desc("去评价").waitFor()
     desc("去评价").click();
     desc("赏好评").waitFor()
@@ -107,12 +109,12 @@ while(true){
     sleep(500)
     //编辑框
     utils.waitForPicCLick(PIC_评价编辑框, 200, "forever", 0, 0, device.width, device.height);
-    //复制
-    setClip("非常nice的买家，收货速度很快，沟通也很顺畅，爱了爱了~")
+    
     //粘贴
     sleep(800)
-    utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
+    //utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
     utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0,  device.width, device.height);
+    
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0,  device.width, device.height);
     desc("发布").click()
     sleep(3000)

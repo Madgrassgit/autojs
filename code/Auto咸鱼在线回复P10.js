@@ -128,8 +128,9 @@ function answerMsg(answer){
     // sleep(500)
     // click(700,1700)
     // sleep(500)
-    utils.waitForPicStableCLick(PIC_输入法工具箱, 200, "forever", 0, 0, device.width, device.height);
-    utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
+    //utils.waitForPicStableCLick(PIC_输入法工具箱, 200, "forever", 0, 0, device.width, device.height);
+    utils.waitForPicStableCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
+    
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0, device.width, device.height);
     desc("发送").click()
     sleep(490)
@@ -141,7 +142,7 @@ function getAnswer(ques){
         if(null == ques){
             res = NO_REPLY;
         }
-        if(((ques.includes("登录")||ques.includes("密码")||ques.includes("账号"))&&
+        else if(((ques.includes("登录")||ques.includes("密码")||ques.includes("账号"))&&
         (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("失败")||ques.includes("没")))||ques.includes("风险")||ques.includes("异常")){
             res = "1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个";
         }
@@ -207,7 +208,7 @@ function getAnswer(ques){
                 res = "发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家";
             }
         }
-        else if(ques=="好"||ques.includes("好的")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
+        else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
         ques.includes("好了")||ques.includes("行了")||ques.includes("关注啦")||ques.includes("关注了")||ques.includes("啦")||ques.includes("可以了")||ques.includes("成功")||ques.includes("已关注")||ques.includes("收到")){
             res = "[比心][比心]";
         }
@@ -228,41 +229,3 @@ function getAnswer(ques){
     return res;
 }
 
-
-
-/**
- * 检查 去评价
- * 结束后回到聊天对话界面
- */
- function checkEvaluate(){
-    sleep(1078)
-   if(desc("去评价").exists()){
-       desc("去评价").click();
-       desc("赏好评").waitFor()
-       desc("赏好评").click();
-       sleep(494)
-       //编辑框
-       utils.waitForPicCLick(PIC_评价编辑框, 200, "forever", 0, 0, device.width, device.height);
-       //复制
-       setClip("非常nice的买家，收货速度很快，沟通也很顺畅，爱了爱了~")
-       //粘贴
-       utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0, device.width, device.height);
-       utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
-       utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0, device.width, device.height);
-       desc("发布").click()
-       sleep(3123)
-       utils.waitForPicCLick(PIC_评价详情退出, 200, "forever", 0, 0, device.width, device.height/2);
-       sleep(1002)
-   }
-   else{
-       return;
-   }
-}
-
-/**
- * 获取50-80秒随机等待毫秒
- */
-function getRandom(){
-    var random1 = Math.round(Math.random()*30000) + 50000;
-    return random1;
-}
