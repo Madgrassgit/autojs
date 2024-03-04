@@ -143,7 +143,7 @@ function getAnswer(ques){
             res = NO_REPLY;
         }
         else if(((ques.includes("登录")||ques.includes("密码")||ques.includes("账号"))&&
-        (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("失败")||ques.includes("没")))||ques.includes("风险")||ques.includes("异常")){
+        (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("失败")||ques.includes("没")))||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("还可以")||ques.includes("还能")){
             res = "1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个";
         }
         else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
