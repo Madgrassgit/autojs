@@ -11,6 +11,7 @@ var PIC_评价编辑框 = "/sdcard/autojs/idlefish/评价编辑框.png";
 var PIC_输入法工具箱 = "/sdcard/autojs/idlefish/输入法工具箱.png";
 var PIC_输入法编辑 = "/sdcard/autojs/idlefish/输入法编辑.png";
 var PIC_输入法粘贴 = "/sdcard/autojs/idlefish/输入法粘贴.png";
+var PIC_输入法关闭 = "/sdcard/autojs/idlefish/输入法关闭.png";
 var PIC_评价详情退出 = "/sdcard/autojs/idlefish/评价详情退出.png";
 
 
@@ -86,6 +87,7 @@ while(true){
                 answerMsg(回答);
             }
             if(回答.includes("发货") && !isSendGood){
+                utils.waitForPicCLick(PIC_输入法关闭, 1000, "forever", 0, 0, device.width, device.height);
                 utils.waitForPicCLick(PIC_去发货, 1000, 5, 0, 0, device.width, device.height/2);
                 utils.waitForPicCLick(PIC_无需寄件, 1000, 10, 0, 0, device.width, device.height/2);
                 utils.waitForPicCLick(PIC_无需寄件确认, 1000, 5, 0, 0, device.width, device.height);
