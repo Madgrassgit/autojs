@@ -33,7 +33,7 @@
 
 
 /**
- * 查找图片，返回坐标和index
+ * 查找图片数组，返回坐标和index
  * @param {*} paths 需要寻找的图片path数组
  * @param {*} checkTime 
  * @param {*} maxTry 
@@ -44,6 +44,7 @@
  * @returns res{x=坐标x, y=坐标y, index=第几个}
  */
  function waitForPics(paths, checkTime, maxTry, left, top, width, height){
+    console.log("[paths]waitForPics[start]")
     var rtn = {};
     let 图片们 = new Array(paths.length);
     for(var i=0;i<paths.length;i++){
@@ -61,9 +62,9 @@
             });
 
             n = 找图结果.points.length;
-            console.log("["+tryTime+"]["+paths[i]+"]waitForPics"+n)
+            //console.log("["+tryTime+"]["+paths[i]+"]waitForPics"+n)
             if(n>=1){
-                console.log(找图结果.points[0].x+", "+找图结果.points[0].y+", "+找图结果.matches[0].similarity)
+                console.log("["+paths[i]+"]waitForPics[succ], 找到坐标("+找图结果.points[0].x+","+找图结果.points[0].y+")")
                 rtn.x = 找图结果.points[0].x;
                 rtn.y = 找图结果.points[0].y;
                 rtn.index = i;
@@ -97,6 +98,7 @@ module.exports = {
  * @param {*} height 查找高度
  */
  function waitForPicCLick(path, checkTime, maxTry, left, top, width, height){
+    console.log("["+path+"]waitForPicCLick[start]")
     var 去发货 = images.read(path);
     var tryTime = 0;
     while(tryTime < maxTry || maxTry == "forever"){
@@ -108,10 +110,10 @@ module.exports = {
         });
 
         n = 找图结果.points.length;
-        console.log("["+tryTime+"]waitForPicCLick："+n)
+        console.log("["+path+"]waitForPicCLick["+tryTime+"]：结果"+n)
         if(n>=1){
             click(找图结果.points[0].x, 找图结果.points[0].y);
-            console.log(找图结果.points[0].x+", "+找图结果.points[0].y+", "+找图结果.matches[0].similarity)
+            console.log("["+path+"]waitForPicCLick[succ], 点击坐标("+找图结果.points[0].x+","+找图结果.points[0].y+")")
             break
         }
         else{
@@ -121,7 +123,17 @@ module.exports = {
     }
 }
 
+
+/**
+ * 等待图片path出现并连续两次位置不变化，再点击
+ * @param {*} path 图片路径
+ * @param {*} checkTime 检验间隔时间
+ * @param {*} maxTry 最大检验测试
+ * @param {*} width 查找宽度
+ * @param {*} height 查找高度
+ */
 function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height){
+    console.log("["+path+"]waitForPicStableCLick[start]")
     var tryTime = 0;
     let pics = [path];
     var lasty = 0;
@@ -130,10 +142,11 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
         var res = waitForPics(pics, checkTime, "forever", left, top, width, height);
         if(lasty==res.y && lastx==res.x){
             click(res.x,res.y);
+            console.log("["+path+"]waitForPicStableCLick[succ], 点击坐标("+res.x+","+res.y+")")
             break;
         }
         else{
-            console.log("["+tryTime+"]waitForPicStableCLick变化：["+lastx+","+lasty+"]=>["+res.x+","+res.y+"]")
+            console.log("["+path+"]waitForPicStableCLick[坐标变化]：["+lastx+","+lasty+"]=>["+res.x+","+res.y+"]")
             lasty = res.y;
             lastx = res.x;
             sleep(checkTime)
