@@ -146,7 +146,8 @@ function getAnswer(ques){
             res = NO_REPLY;
         }
         else if(((ques.includes("登录")||ques.includes("密码")||ques.includes("账号"))&&
-        (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("失败")||ques.includes("没")))||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
+        (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("改")||ques.includes("过期")||ques.includes("失败")||ques.includes("没")))
+        ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
             res = "1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个";
         }
         else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
@@ -194,7 +195,7 @@ function getAnswer(ques){
         else if(ques.includes("门店")||ques.includes("全国")||(ques.startsWith('在')&&ques.length<=3)||ques.includes("有人")||ques.includes("能用")||ques.includes("通用")||
             ques.includes("直接拍")||ques.includes("还有")||ques.includes("有吗")||ques.includes("怎么")||ques.includes("能用")||ques.includes("能不能")||
             ques.includes("你好")||ques.includes("您好")||ques.includes("可以")||ques.includes("现在有")||
-            ques.includes("嗨")||ques.includes("hi")||ques.includes("hello")||ques.includes("Hi")||ques.includes("Hello")||ques.includes("nihao")){
+            ques.includes("嗨")||ques.includes("哈喽")||ques.includes("hi")||ques.includes("hello")||ques.includes("Hi")||ques.includes("Hello")||ques.includes("nihao")){
                 res = "在的，直接拍就行，线上线下全国通用的（PLUS会员），关注本闲鱼号，即可0.1元一直使用（一年以上），账号可以随时登录，拍下发账号和步骤给你" 
         }
         else if(ques.includes("PLUS")||ques.includes("plus")||ques.includes("Plus")||ques.includes("会员")){
