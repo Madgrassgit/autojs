@@ -139,9 +139,11 @@ function answerMsg(answer){
 }
 
 function getAnswer(ques){
-    ques = ques.toLowerCase();
     var res = NO_REPLY;
     try {
+        if(null != ques){
+            ques = ques.toLowerCase();
+        }
         if(null == ques){
             res = NO_REPLY;
         }
