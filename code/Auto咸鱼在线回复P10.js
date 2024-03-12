@@ -65,48 +65,49 @@ while(true){
         continue;
     }
     
+    try{
+        //处理正常消息
+        depth(14).className("android.view.View").waitFor()
+        var 消息列表 = depth(14).className("android.view.View").find();
+        if(消息列表.empty()){
+            console.log("未找到未读消息");
+        }else{
+            /**
+             * 读取倒数unMsgCount数量的消息（未读消息）
+             * 逐一操作：先点击输入框，然后回复
+             */
+            for(var i = 消息列表.length-unMsgCount; i < 消息列表.length; i++){
+                isSendGood = false;
+                var 消息 = 消息列表[i];
+                console.log("消息：" + 消息.desc());
 
-    //p10
-    depth(14).className("android.view.View").waitFor()
-    var 消息列表 = depth(14).className("android.view.View").find();
-    if(消息列表.empty()){
-        console.log("未找到未读消息");
-    }else{
-        /**
-         * 读取倒数unMsgCount数量的消息（未读消息）
-         * 逐一操作：先点击输入框，然后回复
-         */
-        for(var i = 消息列表.length-unMsgCount; i < 消息列表.length; i++){
-            isSendGood = false;
-            var 消息 = 消息列表[i];
-            console.log("消息：" + 消息.desc());
 
-
-            var 回答= getAnswer(消息.desc())
-            if(回答!=NO_REPLY){
-                answerMsg(回答);
+                var 回答= getAnswer(消息.desc())
+                if(回答!=NO_REPLY){
+                    answerMsg(回答);
+                }
+                if(回答.includes("发货") && !isSendGood){
+                    utils.waitForPicCLick(PIC_输入法关闭, 1000, "forever", 0, 0, device.width, device.height);
+                    utils.waitForPicCLick(PIC_去发货, 1000, 5, 0, 0, device.width, device.height/2);
+                    utils.waitForPicCLick(PIC_无需寄件, 1000, 10, 0, 0, device.width, device.height/2);
+                    utils.waitForPicCLick(PIC_无需寄件确认, 1000, 5, 0, 0, device.width, device.height);
+                    isSendGood = true;
+                }
             }
-            if(回答.includes("发货") && !isSendGood){
-                utils.waitForPicCLick(PIC_输入法关闭, 1000, "forever", 0, 0, device.width, device.height);
-                utils.waitForPicCLick(PIC_去发货, 1000, 5, 0, 0, device.width, device.height/2);
-                utils.waitForPicCLick(PIC_无需寄件, 1000, 10, 0, 0, device.width, device.height/2);
-                utils.waitForPicCLick(PIC_无需寄件确认, 1000, 5, 0, 0, device.width, device.height);
-                isSendGood = true;
-            }
+            
         }
-        
     }
-
-    
+    catch (error) {
+        // 处理异常的代码
+        console.error('读取/回复消息捕获到异常：', error);
+        res = NO_REPLY;
+    } finally {
+        // 无论是否发生异常，都会执行的代码
+        console.log('读取/回复消息完成，回消息tab');
+    }
 
     desc("返回").click()
     sleep(997)
-    // if(!text("消息").exists()){
-    //     back()
-    //     sleep(500)
-    //     // var 消息tab = text("消息").findOne();
-    //     // click(消息tab.bounds().centerX(), 消息tab.bounds().centerY())
-    // }
 }
 
 /**
@@ -119,20 +120,8 @@ function answerMsg(answer){
     var 说点什么 = className("android.view.View").descContains("说点什么").findOne();
     click(说点什么.bounds().centerX(), 说点什么.bounds().centerY())
     sleep(1011);
-    //P9
-    // click(700,1100)
-    // sleep(500)
-    // click(700,1700)
-    //p10
-    // click(80,1100)
-    // sleep(500)
-    // click(150,1700)
-    // sleep(500)
-    // click(700,1700)
-    // sleep(500)
-    //utils.waitForPicStableCLick(PIC_输入法工具箱, 200, "forever", 0, 0, device.width, device.height);
+
     utils.waitForPicStableCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
-    
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0, device.width, device.height);
     desc("发送").click()
     sleep(490)
@@ -226,7 +215,7 @@ function getAnswer(ques){
     }
     catch (error) {
         // 处理异常的代码
-        console.error('捕获到异常：', error);
+        console.error('getAnswer捕获到异常：', error);
         res = NO_REPLY;
     } finally {
         // 无论是否发生异常，都会执行的代码
