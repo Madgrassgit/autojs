@@ -19,7 +19,7 @@
         });
 
         n = 找图结果.points.length;
-        console.log("["+tryTime+"]isPicExist: " + n)
+        console.log("["+path+"]isPicExist["+tryTime+"]：结果数量" + n)
         if(n>=1){
             return true;
         }
@@ -96,8 +96,10 @@ module.exports = {
  * @param {*} maxTry 最大检验测试
  * @param {*} width 查找宽度
  * @param {*} height 查找高度
+ * return rtn 是否找到并点击
  */
  function waitForPicCLick(path, checkTime, maxTry, left, top, width, height){
+    var rtn = false;
     console.log("["+path+"]waitForPicCLick[start]")
     var 去发货 = images.read(path);
     var tryTime = 0;
@@ -114,13 +116,15 @@ module.exports = {
         if(n>=1){
             click(找图结果.points[0].x, 找图结果.points[0].y);
             console.log("["+path+"]waitForPicCLick[succ], 点击坐标("+找图结果.points[0].x+","+找图结果.points[0].y+")")
-            break
+            rtn = true;
+            break;
         }
         else{
             sleep(checkTime)
             tryTime++
         }
     }
+    return rtn;
 }
 
 
