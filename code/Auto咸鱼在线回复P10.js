@@ -166,11 +166,11 @@ function getAnswer(ques){
         else if(((ques.includes("登")||ques.includes("密码")||ques.includes("账号"))&&
         (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("改")||ques.includes("过期")||ques.includes("失败")||ques.includes("没")||ques.includes("变")||ques.includes("换")))
         ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
-            回答list.push("1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个");
+            回答list.push("1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。关注本闲鱼号，即可永久享受PLUS会员！[比心][比心]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个");
         }
         else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
         ||ques.includes("一次")||ques.includes("1次")||ques.includes("午")||ques.includes("时间")||ques.includes("天")||ques.includes("现在")||ques.includes("马上")){
-            回答list.push("关注本闲鱼号，即可0.1元一直使用（一年以上），账号可以随时登录，也可以提前登录。关注闲鱼号，售后账号/密码变更或登录有问题找我即可");
+            回答list.push("关注本闲鱼号，即可0.1元一直使用（一年以上），账号可以随时登录，也可以提前登录。关注本闲鱼号，即可永久享受PLUS会员！以后登录有问题找我免费发新账号。");
         }
         else if((ques.includes("借用")||ques.includes("你的")||ques.includes("你发的"))&&ques.includes("号")){
             回答list.push("是的，用我的账号登录，跟自己开通199一样的");
@@ -215,11 +215,11 @@ function getAnswer(ques){
             ques.includes("直接拍")||ques.includes("还有")||ques.includes("有吗")||ques.includes("怎么")||ques.includes("能用")||ques.includes("能不能")||
             ques.includes("你好")||ques.includes("您好")||ques.includes("可以")||ques.includes("现在有")||
             ques.includes("嗨")||ques.includes("哈喽")||ques.includes("hi")||ques.includes("hello")||ques.includes("Hi")||ques.includes("Hello")||ques.includes("nihao")){
-                回答list.push("您好，在的，线上线下全国通用，不限门店，麦德龙PLUS会员。");
-                回答list.push("先关注我闲鱼号，然后直接拍（价格0.1元）。粉丝永久售后，后期如遇登录问题找我就行，免费提供新账号。"); 
+                回答list.push("您好，在的，线上线下全国通用，不限门店，麦德龙PLUS会员，享受PLUS折扣价。");
+                回答list.push("先关注本闲鱼号，然后直接拍（0.1元），关注后即可永久享受PLUS会员！以后登录有问题找我免费发新账号。"); 
         }
         else if(ques.includes("PLUS")||ques.includes("plus")||ques.includes("Plus")||ques.includes("会员")){
-            回答list.push("是PLUS卡，放心！打开麦德龙APP，手机摇一摇，弹出PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受会员价，进店、收营员结帐畅通无阻！");
+            回答list.push("是PLUS卡，放心！打开麦德龙APP，手机摇一摇，弹出PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受PLUS会员价，进店、收营员结帐畅通无阻！");
         }
         else if(ques.includes("我已拍下")){
             回答list.push(NO_REPLY);
@@ -231,7 +231,8 @@ function getAnswer(ques){
             // else{
                 needSendGood = true;
                 回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
-                回答list.push("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]");
+                回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！以后登录有问题找我免费发新账号[比心][比心]");
+                回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]");
             //}
         }
         else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
@@ -240,7 +241,7 @@ function getAnswer(ques){
         }
         else{
             回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
-            回答list.push("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]");
+            回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！以后登录有问题找我免费发新账号[比心][比心]");
         }
     }
     catch (error) {
@@ -253,4 +254,3 @@ function getAnswer(ques){
     }
     return 回答list;
 }
-
