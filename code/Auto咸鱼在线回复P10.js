@@ -166,7 +166,12 @@ function getAnswer(ques){
         else if(((ques.includes("登")||ques.includes("密码")||ques.includes("账号"))&&
         (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("改")||ques.includes("过期")||ques.includes("失败")||ques.includes("没")||ques.includes("变")||ques.includes("换")))
         ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
-            回答list.push("1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。关注本闲鱼号，即可永久享受PLUS会员！[比心][比心]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个");
+            if(ques.includes("1.之前账号异常")){
+                回答list.push(NO_REPLY);
+            }
+            else{
+                回答list.push("1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。关注本闲鱼号，即可永久享受PLUS会员！[比心][比心]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个");
+            }
         }
         else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
         ||ques.includes("一次")||ques.includes("1次")||ques.includes("午")||ques.includes("时间")||ques.includes("天")||ques.includes("现在")||ques.includes("马上")){
@@ -240,8 +245,7 @@ function getAnswer(ques){
             回答list.push("[比心][比心]");
         }
         else{
-            回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
-            回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！以后登录有问题找我免费发新账号[比心][比心]");
+            回答list.push("先关注本闲鱼号，然后直接拍（0.1元），关注后即可永久享受PLUS会员！以后登录有问题找我免费发新账号。"); 
         }
     }
     catch (error) {
