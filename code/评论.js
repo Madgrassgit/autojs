@@ -54,10 +54,19 @@ while(true){
         click(res.x, res.y)
         //waitForPicCLick(PIC_联系买家, 200, "forever", 0, 0, device.width, device.height/2);
         checkEvaluate()
-        answerMsg("亲亲好用的话帮忙给个好评哦[比心][比心]")
-        //13776932329 18851123960
-        //answerMsg("之前账号异常，新账号："+utils.getPhone()+" 密码：aaaa99")
-        answerMsg("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]")
+        
+        /**
+         * 判断是不是自己的号
+         */
+        var 会员名 = className("android.view.View").descContains("会员名").findOne();
+        console.log("会员名: "+会员名.desc())
+        if(会员名.desc().indexOf("韩语熙") == -1 && 会员名.desc().indexOf("麦德龙") == -1 && 会员名.desc().indexOf("西汉乐观的金桔") == -1){
+            //13776932329 18851123960
+            //answerMsg("之前账号异常，新账号："+utils.getPhone()+" 密码：aaaa99")
+            answerMsg("亲亲好用的话帮忙给个好评哦[比心][比心]")
+            answerMsg("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]")
+        }
+        
         var 返回 = desc("返回").findOne()
         console.log("返回 待评价列表 findOne :" + desc("返回").exists())
         返回.click()
