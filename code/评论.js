@@ -37,7 +37,16 @@ while(true){
     //查找图片"不存在待评价的宝贝"/"联系买家"，进行退出/去评价
     //var 不存在待评价宝贝 = isPicExist(PIC_没有待评价宝贝, 200, 10, device.width, device.height);
     let pics = [PIC_没有待评价宝贝, PIC_联系买家];
-    var res = utils.waitForPics(pics, 500, "forever", 0, 0, device.width, device.height);
+    var res = null;
+    res = utils.waitForPics(pics, 500, 16, 0, 0, device.width, device.height);
+    while(null == res){
+        desc("返回").findOne().click();
+        sleep(1000)
+        待评价.click()
+        sleep(1000)
+        res = utils.waitForPics(pics, 500, 16, 0, 0, device.width, device.height);
+    }
+
     /**
      * 存在待评价宝贝
      */
@@ -56,7 +65,7 @@ while(true){
         sleep(1000)
         desc("返回").findOne().click();
     }
-    else{
+    else {
         sleep(1000)
         desc("返回").findOne().click();
         sleep(1000)
