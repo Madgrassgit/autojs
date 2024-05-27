@@ -166,7 +166,7 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
  */
 function getPhone(){
     var myDate = new Date();
-    var phones = ['13776932329','18851123960']
+    var phones = ['18851123960','17372956277','13776932329','17372956277']
 
     var days = Math.floor(myDate.getTime()/1000/86400);
     var phone_index = days%phones.length;

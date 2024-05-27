@@ -12,6 +12,9 @@ else{
 var PIC_我的tab = "/sdcard/autojs/idlefish/我的tab.png";
 var PIC_消息tab = "/sdcard/autojs/idlefish/消息tab.png";
 var PIC_联系买家 = "/sdcard/autojs/idlefish/联系买家.png";
+var PIC_去评价 = "/sdcard/autojs/idlefish/去评价.png";
+var PIC_订单交易中 = "/sdcard/autojs/idlefish/订单交易中.png";
+var PIC_订单交易中关闭 = "/sdcard/autojs/idlefish/订单交易中关闭.png";
 var PIC_评价编辑框 = "/sdcard/autojs/idlefish/评价编辑框.png";
 var PIC_输入法工具箱 = "/sdcard/autojs/idlefish/输入法工具箱.png";
 var PIC_输入法编辑 = "/sdcard/autojs/idlefish/输入法编辑.png";
@@ -120,8 +123,18 @@ while(true){
  function checkEvaluate(){
      //复制
     setClip("非常nice的买家，收货速度很快，沟通也很顺畅，爱了爱了~")
-    desc("去评价").waitFor()
-    desc("去评价").click();
+    //desc("去评价").waitFor()
+    sleep(1000)
+
+    var 订单交易中 = false;
+    if(!desc("去评价").exists()){
+        订单交易中 = utils.waitForPicCLick(PIC_订单交易中, 1000, 2, 0, 0, device.width, device.height/2);
+        utils.waitForPicCLick(PIC_去评价, 200, "forever", 0, 0, device.width, device.height);
+    }
+    else{
+        desc("去评价").click();
+    }
+
     desc("赏好评").waitFor()
     desc("赏好评").click();
     sleep(500)
@@ -138,5 +151,10 @@ while(true){
     sleep(3000)
     utils.waitForPicCLick(PIC_评价详情退出, 200, "forever", 0, 0,  device.width, device.height/2);
     sleep(1000)
+
+    if(订单交易中){
+        sleep(1000)
+        utils.waitForPicCLick(PIC_订单交易中关闭, 1000, 5, 0, 0, device.width, device.height);
+    }
 }
 

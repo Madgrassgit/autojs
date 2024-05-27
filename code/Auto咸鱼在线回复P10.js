@@ -160,7 +160,7 @@ function getAnswer(ques){
         if(null != ques){
             ques = ques.toLowerCase();
         }
-        if(null == ques){
+        if(null == ques || ques.includes("1.之前账号异常") || ques.includes("重要的事情说三遍") || ques.includes("本闲鱼长期维护") || ques.includes("帮忙给个好评")){
             回答list.push(NO_REPLY);
         }
         else if(((ques.includes("登")||ques.includes("密码")||ques.includes("账号"))&&
@@ -209,7 +209,7 @@ function getAnswer(ques){
         else if(ques.includes("停车")||ques.includes("车牌")){
             回答list.push("结帐后问下收营员，如果需要绑定车牌则不能免费停车，否则让她给你[结账单]用于出口处登记车牌");
         }
-        else if(ques.includes("券")){
+        else if(ques.includes("券") || ques.includes("卷")){
             回答list.push("优惠券都可用，自己在app-我的-常用工具-领券中心领取，每日9点 14点限量开抢，一般半小时就没了");
             回答list.push("每天9点还可以抢一下运费券");
         }
