@@ -61,13 +61,19 @@ while(true){
         /**
          * 判断是不是自己的号
          */
-        var 会员名 = className("android.view.View").descContains("会员名").findOne();
-        console.log("会员名: "+会员名.desc())
-        if(会员名.desc().indexOf("韩语熙") == -1 && 会员名.desc().indexOf("麦德龙") == -1 && 会员名.desc().indexOf("西汉乐观的金桔") == -1){
-            //13776932329 18851123960
-            //answerMsg("之前账号异常，新账号："+utils.getPhone()+" 密码：aaaa99")
-            answerMsg("亲亲好用的话帮忙给个好评哦[比心][比心]")
-            answerMsg("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]")
+        var 会员名 = className("android.widget.ImageView").descContains("会员名").findOnce();
+        if(null==会员名){
+            会员名 = className("android.view.View").descContains("会员名").findOnce();
+        }
+        if(null!=会员名){
+            console.log("会员名: "+会员名.desc())
+            if(会员名.desc().indexOf("韩语熙") == -1 && 会员名.desc().indexOf("麦德龙") == -1 && 会员名.desc().indexOf("西汉乐观的金桔") == -1){
+                answerMsg("亲亲好用的话帮忙给个好评哦[比心][比心]")
+                answerMsg("本闲鱼号长期维护账号密码，关注闲鱼号成为粉丝，以后账号异常/遇到登录问题找我即可，百分百售后！[举杯][举杯]")
+            }
+        }
+        else{
+            console.log("未找到会员名控件")
         }
         
         var 返回 = desc("返回").findOne()
@@ -110,8 +116,7 @@ while(true){
     // sleep(500)
     // click(700,1700)
     //p10
-    //utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
-    utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0,  device.width, device.height);
+    utils.waitForPicStableCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0,  device.width, device.height);
     desc("发送").click()
     sleep(500)
@@ -123,17 +128,18 @@ while(true){
  function checkEvaluate(){
      //复制
     setClip("非常nice的买家，收货速度很快，沟通也很顺畅，爱了爱了~")
-    //desc("去评价").waitFor()
-    sleep(1000)
+    desc("去评价").waitFor()
+    desc("去评价").click();
+    // sleep(1000)
 
     var 订单交易中 = false;
-    if(!desc("去评价").exists()){
-        订单交易中 = utils.waitForPicCLick(PIC_订单交易中, 1000, 2, 0, 0, device.width, device.height/2);
-        utils.waitForPicCLick(PIC_去评价, 200, "forever", 0, 0, device.width, device.height);
-    }
-    else{
-        desc("去评价").click();
-    }
+    // if(!desc("去评价").exists()){
+    //     订单交易中 = utils.waitForPicCLick(PIC_订单交易中, 1000, 2, 0, 0, device.width, device.height/2);
+    //     utils.waitForPicCLick(PIC_去评价, 200, "forever", 0, 0, device.width, device.height);
+    // }
+    // else{
+    //     desc("去评价").click();
+    // }
 
     desc("赏好评").waitFor()
     desc("赏好评").click();
@@ -143,8 +149,7 @@ while(true){
     
     //粘贴
     sleep(800)
-    //utils.waitForPicCLick(PIC_输入法工具箱, 200, "forever", 0, 0,  device.width, device.height);
-    utils.waitForPicCLick(PIC_输入法编辑, 200, "forever", 0, 0,  device.width, device.height);
+    utils.waitForPicStableCLick(PIC_输入法编辑, 200, "forever", 0, 0, device.width, device.height);
     
     utils.waitForPicCLick(PIC_输入法粘贴, 200, "forever", 0, 0,  device.width, device.height);
     desc("发布").click()
