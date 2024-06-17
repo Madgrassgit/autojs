@@ -174,11 +174,17 @@ function getAnswer(ques){
             }
         }
         else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
-        ||ques.includes("一次")||ques.includes("1次")||ques.includes("午")||ques.includes("时间")||ques.includes("天")||ques.includes("现在")||ques.includes("马上")){
+        ||ques.includes("一次")||ques.includes("1次")||ques.includes("次卡")||ques.includes("午")||ques.includes("时间")||ques.includes("天")||ques.includes("现在")||ques.includes("马上")){
             回答list.push("关注本闲鱼号，即可0.1元一直使用（一年以上），账号可以随时登录，也可以提前登录。关注本闲鱼号，即可永久享受PLUS会员！以后登录有问题找我免费发新账号。");
         }
-        else if((ques.includes("借用")||ques.includes("你的")||ques.includes("你发的"))&&ques.includes("号")){
-            回答list.push("是的，用我的账号登录，跟自己开通199一样的");
+        else if(((ques.includes("借用")||ques.includes("你的")||ques.includes("你发的")||ques.includes("我的")||ques.includes("你自己"))&&ques.includes("号"))||ques.includes("副卡")||ques.includes("多人")||ques.includes("其他人")||ques.includes("别人")||ques.includes("别的人")){
+            回答list.push("是的，用我的账号(副卡)登录，跟自己开通199一样的，只是没有积分");
+        }
+        else if(ques.includes("顶下去")){
+            回答list.push("一般不会登出，如果登出了重新登录即可。万一登录不上来找我就行。");
+        }
+        else if((ques.includes("付款")||ques.includes("微信")||ques.includes("支付宝"))){
+            回答list.push("付款是用自己的微信支付宝的付款码");
         }
         else if((ques.includes("独")||ques.includes("个人"))&&ques.includes("号")){
             回答list.push("不是单独/个人账号，直接用我的账号登录，跟自己开通199一样的");
@@ -203,7 +209,7 @@ function getAnswer(ques){
         else if(ques.includes("京东")){
             回答list.push("抱歉，不支持京东");
         }
-        else if(ques.includes("小程序")||ques.includes("App")||ques.includes("APP")){
+        else if(ques.includes("小程序")||ques.includes("app")||ques.includes("下载")){
             回答list.push("不支持小程序，因为需要发验证码绑定，还是麻烦下载官方APP-“麦德龙”，不是英文\"METRO\"那个哈");
         }
         else if(ques.includes("停车")||ques.includes("车牌")){
@@ -221,31 +227,31 @@ function getAnswer(ques){
             ques.includes("你好")||ques.includes("您好")||ques.includes("可以")||ques.includes("现在有")||
             ques.includes("嗨")||ques.includes("哈喽")||ques.includes("hi")||ques.includes("hello")||ques.includes("Hi")||ques.includes("Hello")||ques.includes("nihao")){
                 回答list.push("您好，在的，线上线下全国通用，不限门店，麦德龙PLUS会员，享受PLUS折扣价。");
-                回答list.push("先关注本闲鱼号，然后直接拍（0.1元），关注后即可永久享受PLUS会员！以后登录有问题找我免费发新账号。"); 
+                回答list.push("先关注本闲鱼号，然后直接拍，粉丝0.1元（关注后自动改价）永久使用，不限次数！"); 
         }
-        else if(ques.includes("PLUS")||ques.includes("plus")||ques.includes("Plus")||ques.includes("会员")){
+        else if(ques.includes("plus")||ques.includes("会员")){
             回答list.push("是PLUS卡，放心！打开麦德龙APP，手机摇一摇，弹出PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受PLUS会员价，进店、收营员结帐畅通无阻！");
         }
         else if(ques.includes("我已拍下")){
             回答list.push(NO_REPLY);
         }
-        else if(ques.includes("我已付款")||ques.includes("记得及时发货")){
+        else if(ques.includes("等待你发货")||ques.includes("记得及时发货")){
             // if(isSendGood){
             //     res = NO_REPLY;
             // }
             // else{
                 needSendGood = true;
                 回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
-                回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！以后登录有问题找我免费发新账号[比心][比心]");
+                回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！粉丝永久使用不限次数，有问题找我[比心][比心]");
                 回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]");
             //}
         }
         else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
         ques.includes("好了")||ques.includes("行了")||ques.includes("关注啦")||ques.includes("关注了")||ques.includes("啦")||ques.includes("可以了")||ques.includes("成功")||ques.includes("已关注")||ques.includes("收到")){
-            回答list.push("[比心][比心]");
+            回答list.push("好滴[比心][比心]");
         }
         else{
-            回答list.push("先关注本闲鱼号，然后直接拍（0.1元），关注后即可永久享受PLUS会员！以后登录有问题找我免费发新账号。"); 
+            回答list.push("先关注本闲鱼号，然后直接拍，粉丝0.1元（关注后自动改价）永久使用，不限次数！"); 
         }
     }
     catch (error) {
