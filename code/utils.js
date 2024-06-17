@@ -161,15 +161,30 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
 }
 
 /**
- * 第一天
+ * 获取账号
  * @returns 
  */
 function getPhone(){
     var myDate = new Date();
-    var phones = ['18851123960','17372956277','13776932329','17372956277']
+    var phones = ['18851123960','17372956277','13776932329']
 
-    var days = Math.floor(myDate.getTime()/1000/86400);
-    var phone_index = days%phones.length;
-    return phones[phone_index];
+    var d = myDate.getDay();
+    console.log("今天星期"+d);
+    /**
+     * 周末人多，随机发送手机号
+     */
+	if(d == 6 || d == 0){
+        var index = getRandomInt(0, phones.length-1);
+        console.log("随机序号"+index);
+        return phones[index];
+    }
+    else{
+        var days = Math.floor(myDate.getTime()/1000/86400);
+        var phone_index = days%phones.length;
+        return phones[phone_index];
+    }
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
