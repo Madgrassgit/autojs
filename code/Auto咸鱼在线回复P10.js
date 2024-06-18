@@ -163,6 +163,9 @@ function getAnswer(ques){
         if(null == ques || ques.includes("1.之前账号异常") || ques.includes("重要的事情说三遍") || ques.includes("本闲鱼长期维护") || ques.includes("帮忙给个好评")){
             回答list.push(NO_REPLY);
         }
+        else if(ques.includes("我已拍下")){
+            回答list.push(NO_REPLY);
+        }
         else if(ques.includes("等待你发货")||ques.includes("记得及时发货")){
             needSendGood = true;
             回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
@@ -189,7 +192,7 @@ function getAnswer(ques){
         else if(ques.includes("顶下去")){
             回答list.push("一般不会登出，如果登出了重新登录即可。万一登录不上来找我就行。");
         }
-        else if((ques.includes("付款")||ques.includes("微信")||ques.includes("支付宝"))){
+        else if((ques.includes("付钱")||ques.includes("付款")||ques.includes("微信")||ques.includes("支付宝"))&&!ques.includes("待付款")&&!ques.includes("我已付款")){
             回答list.push("付款是用自己的微信支付宝的付款码");
         }
         else if((ques.includes("独")||ques.includes("个人"))&&ques.includes("号")){
@@ -237,9 +240,6 @@ function getAnswer(ques){
         }
         else if(ques.includes("plus")||ques.includes("会员")){
             回答list.push("是PLUS卡，放心！打开麦德龙APP，手机摇一摇，弹出PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受PLUS会员价，进店、收营员结帐畅通无阻！");
-        }
-        else if(ques.includes("我已拍下")){
-            回答list.push(NO_REPLY);
         }
         else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
         ques.includes("好了")||ques.includes("行了")||ques.includes("关注啦")||ques.includes("关注了")||ques.includes("啦")||ques.includes("可以了")||ques.includes("成功")||ques.includes("已关注")||ques.includes("收到")){
