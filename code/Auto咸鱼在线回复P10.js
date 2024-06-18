@@ -163,6 +163,12 @@ function getAnswer(ques){
         if(null == ques || ques.includes("1.之前账号异常") || ques.includes("重要的事情说三遍") || ques.includes("本闲鱼长期维护") || ques.includes("帮忙给个好评")){
             回答list.push(NO_REPLY);
         }
+        else if(ques.includes("等待你发货")||ques.includes("记得及时发货")){
+            needSendGood = true;
+            回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
+            回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！粉丝永久使用不限次数，有问题找我[比心][比心]");
+            回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]");
+        }
         else if(((ques.includes("登")||ques.includes("密码")||ques.includes("账号"))&&
         (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("改")||ques.includes("过期")||ques.includes("失败")||ques.includes("没")||ques.includes("变")||ques.includes("换")))
         ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
@@ -234,17 +240,6 @@ function getAnswer(ques){
         }
         else if(ques.includes("我已拍下")){
             回答list.push(NO_REPLY);
-        }
-        else if(ques.includes("等待你发货")||ques.includes("记得及时发货")){
-            // if(isSendGood){
-            //     res = NO_REPLY;
-            // }
-            // else{
-                needSendGood = true;
-                回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
-                回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！粉丝永久使用不限次数，有问题找我[比心][比心]");
-                回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]");
-            //}
         }
         else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
         ques.includes("好了")||ques.includes("行了")||ques.includes("关注啦")||ques.includes("关注了")||ques.includes("啦")||ques.includes("可以了")||ques.includes("成功")||ques.includes("已关注")||ques.includes("收到")){
