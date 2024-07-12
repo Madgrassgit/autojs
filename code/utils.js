@@ -7,7 +7,7 @@
  * @param {*} height 
  * @returns 
  */
- function isPicExist(path, checkTime, maxTry, width, height){
+function isPicExist(path, checkTime, maxTry, width, height){
     var 去发货 = images.read(path);
     var tryTime = 0;
     while(tryTime < maxTry || maxTry == "forever"){
@@ -166,7 +166,11 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
  */
 function getPhone(){
     var myDate = new Date();
-    var phones = ['18851123960','17372956277','13776932329']
+    //13776932329 18851123960
+    var phones = ['17384465093','17372956277','18851123960','13776932329']
+    var phonesWorkDays = new Array(2);
+    phonesWorkDays[1] = ['17384465093','17384465093','17372956277']
+    phonesWorkDays[0] = ['17372956277','17372956277','17384465093']
 
     var d = myDate.getDay();
     console.log("今天星期"+d);
@@ -178,13 +182,51 @@ function getPhone(){
         console.log("随机序号"+index);
         return phones[index];
     }
+    /**
+     * 工作日两个号就足够
+     */
     else{
         var days = Math.floor(myDate.getTime()/1000/86400);
-        var phone_index = days%phones.length;
-        return phones[phone_index];
+        var index1 = days%phonesWorkDays.length;
+        var index2 = getRandomInt(0, phonesWorkDays[index1].length-1)
+        console.log("index1="+index1+" index2="+index2);
+        return phonesWorkDays[index1][index2];
     }
 }
 
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+
+/**
+ *  获取范围内的随机数字（min、max在0-10以内）
+ **/
+ function myRandomIndex(testCount,min,max) {
+
+    while(true){
+        var res = myRandomInt(testCount);
+        if(res<min || res>max) continue;
+        else return res;
+    }
+}
+
+/**
+ *  获取0-10随机数字
+ **/
+function myRandomInt(testCount) {
+    var res = 0;
+    for(var i=0;i<testCount;i++){
+        var temp = Math.random();
+        temp = temp.toFixed(10);
+        var tempfloat = parseFloat(temp);
+        res = res + tempfloat;
+        console.log(i+" tempfloat="+tempfloat)
+    }
+    var str = res.toString();
+    let lastChar = str.substring(5, 6);
+    let rtn = parseInt(lastChar);
+    console.log("res="+res)
+    console.log("rtn="+rtn)
+    return rtn;
 }
