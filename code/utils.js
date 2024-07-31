@@ -143,11 +143,17 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
     var lasty = 0;
     var lastx = 0;
     while(tryTime < maxTry  || maxTry == "forever"){
-        var res = waitForPics(pics, checkTime, "forever", left, top, width, height);
-        if(lasty==res.y && lastx==res.x){
+        var res = waitForPics(pics, checkTime, 1, left, top, width, height);
+        if(null!=res && lasty==res.y && lastx==res.x){
             click(res.x,res.y);
             console.log("["+path+"]waitForPicStableCLick[succ], 点击坐标("+res.x+","+res.y+")")
-            break;
+            return true;
+        }
+        else if(null == res){
+            console.log("["+path+"]waitForPicStableCLick[没找到]：["+lastx+","+lasty+"]=>[null]")
+            lasty = 0;
+            lastx = 0;
+            sleep(checkTime)
         }
         else{
             console.log("["+path+"]waitForPicStableCLick[坐标变化]：["+lastx+","+lasty+"]=>["+res.x+","+res.y+"]")
@@ -158,6 +164,7 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
         tryTime++;
         
     }
+    return false;
 }
 
 /**
@@ -167,10 +174,10 @@ function waitForPicStableCLick(path, checkTime, maxTry, left, top, width, height
 function getPhone(){
     var myDate = new Date();
     //13776932329 18851123960
-    var phones = ['17384465093','17372956277','18851123960','13776932329']
+    var phones = ['17384465093','18851123960','17372956277','13776932329']
     var phonesWorkDays = new Array(2);
-    phonesWorkDays[1] = ['17384465093','17384465093','17372956277']
-    phonesWorkDays[0] = ['17372956277','17372956277','17384465093']
+    phonesWorkDays[1] = ['17384465093','13776932329','17384465093','17372956277','18851123960']
+    phonesWorkDays[0] = ['17372956277','18851123960','17372956277','17384465093','13776932329']
 
     var d = myDate.getDay();
     console.log("今天星期"+d);

@@ -1,20 +1,20 @@
 var utils = require('utils.js');
 sleep(5000)
 //device.wakeUp()
-device.keepScreenOn()
-var w = floaty.rawWindow(
-    //ee000000，黑色透一点，前两位为透明度，ff完全看不见会导致寻图失败
-    <frame gravity="center" bg="#ee000000">
+// device.keepScreenOn()
+// var w = floaty.rawWindow(
+//     //ee000000，黑色透一点，前两位为透明度，ff完全看不见会导致寻图失败
+//     <frame gravity="center" bg="#ee000000">
       
-    </frame>
-);
-w.setSize(1100, 2000);
-w.setPosition(0, -100);
-w.setTouchable(false);
+//     </frame>
+// );
+// w.setSize(1100, 2000);
+// w.setPosition(0, -100);
+// w.setTouchable(false);
 
-setTimeout(()=>{
-    w.close();
-}, 54000*1000);
+// setTimeout(()=>{
+//     w.close();
+// }, 54000*1000);
 
 
 //图片路径
@@ -128,20 +128,44 @@ while(true){
                     if((j==回答list.length-1) && needSendGood){
                         utils.waitForPicCLick(PIC_输入法关闭, 1000, "forever", 0, 0, device.width, device.height);
                         var 订单交易中 = false;
-                        if(!utils.isPicExist(PIC_去发货, 1000, 3, device.width, device.height/2)){
-                            订单交易中 = utils.waitForPicCLick(PIC_订单交易中, 1000, 2, 0, 0, device.width, device.height/2);
-                            utils.waitForPicCLick(PIC_订单交易中去发货, 1000, 5, 0, 0, device.width, device.height);
+                        if(utils.isPicExist(PIC_去发货, 500, 4, device.width, device.height/2)){
+                            console.log("直接=>去发货")
+                            utils.waitForPicCLick(PIC_去发货, 500, 4, 0, 0, device.width, device.height);
+                            sleep(1000)
+                            if(desc("该笔订单无需邮寄").exists()){
+                                console.log("该笔订单无需邮寄=>确认发货")
+                                var 确认发货 = desc("确认发货").findOne();
+                                click(确认发货.bounds().centerX(), 确认发货.bounds().centerY())
+                            }
+                            else if(utils.waitForPicStableCLick(PIC_无需寄件, 500, 10, 0, 0, device.width, device.height/2)){
+                                console.log("PIC_无需寄件=>PIC_无需寄件确认")
+                                utils.waitForPicStableCLick(PIC_无需寄件确认, 500, 10, 0, 0, device.width, device.height);
+                            }
+                            else{
+                                console.log("找不到PIC_无需寄件=>后退")
+                                back()
+                            }
+                        }
+                        else if(utils.isPicExist(PIC_订单交易中, 500, 4, device.width, device.height/2)){
+                            console.log("订单交易中=>去发货")
+                            订单交易中 = utils.waitForPicCLick(PIC_订单交易中, 500, 4, 0, 0, device.width, device.height/2);
+                            utils.waitForPicStableCLick(PIC_订单交易中去发货, 500, 10, 0, 0, device.width, device.height);
+                            if(desc("该笔订单无需邮寄").exists()){
+                                console.log("该笔订单无需邮寄=>确认发货")
+                                desc("确认发货").click();
+                            }
+                            else{
+                                console.log("PIC_无需寄件=>PIC_无需寄件确认")
+                                utils.waitForPicStableCLick(PIC_无需寄件, 500, 20, 0, 0, device.width, device.height/2);
+                                utils.waitForPicStableCLick(PIC_无需寄件确认, 500, 20, 0, 0, device.width, device.height);
+                            }
+                            if(订单交易中){
+                                sleep(3000)
+                                utils.waitForPicCLick(PIC_订单交易中关闭, 500, 6, 0, 0, device.width, device.height);
+                            }
                         }
                         else{
-                            utils.waitForPicCLick(PIC_去发货, 1000, 5, 0, 0, device.width, device.height);
-                        }
-
-                        utils.waitForPicCLick(PIC_无需寄件, 1000, 10, 0, 0, device.width, device.height/2);
-                        utils.waitForPicStableCLick(PIC_无需寄件确认, 1000, 5, 0, 0, device.width, device.height);
-                        console.log("订单交易中:"+订单交易中)
-                        if(订单交易中){
-                            sleep(3000)
-                            utils.waitForPicCLick(PIC_订单交易中关闭, 1000, 5, 0, 0, device.width, device.height);
+                            console.log("既不是直接去发货，也不是订单交易中去发货")
                         }
                     }
                 }
@@ -216,14 +240,14 @@ function getAnswer(ques){
         }
         else if(ques.includes("等待你发货")||ques.includes("记得及时发货")){
             needSendGood = true;
-            回答list.push("发货：\n⏬麦德龙APP，切换到“密码登陆\n账："+utils.getPhone()+"\n密：aaaa99\n重要的事情说三遍:\n登陆APP后，一定要晃动一下手机，弹出黑卡就是PLUS会员卡（带附属卡三个字，带有效期）。有了它，进店、结账，畅通无阻！\n①线下人工→结账先出示会员码，出总价后工作人员扫你的手机支付。\n②线下自助→先用机器扫商品，再用登陆了会员的App首页扫结账码。\n③线上→留地址和您自己的电话，配送到家。");
+            回答list.push("【发货】⏬麦德龙APP，切换到【密码登陆】\n账："+utils.getPhone()+"\n密：aaaa99\n【重要】登陆APP后晃下手机出现会员码界面，进店、结账需要用到（晃不出来看商品介绍最后一张图按图操作也行），带'附属卡'和有效期就是plus会员\n\n①人工结帐：出示会员码给收营员扫→扫商品出总价→扫付款码\n②机器结帐：机器扫会员码→机器扫商品条码→麦德龙App首页扫一扫机器上的结帐码\n③线上：留您的电话和地址");
             //回答list.push("本闲鱼长期维护账号密码，关注本闲鱼号即可永久享受PLUS会员！粉丝永久使用不限次数，有问题找我[比心][比心]");
-            回答list.push("最近少部分店面升级了机器,要求必须微信付款。亲亲遇到这种请走人工通道尽量使用支付宝结帐(微信会校验App账号与小程序的麦德龙账号一致性)");
-            回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]");
+            回答list.push("最近少部分店面升级了机器,要求必须vx付款。亲亲遇到这种请走人工通道尽量使用zfb结帐(vx会校验App账号与小程序的麦德龙账号一致性)");
+            回答list.push("好用的话请帮忙给个好评哦[飞吻][飞吻]（步骤和账号看上面发的）");
         }
         else if(((ques.includes("登")||ques.includes("密码")||ques.includes("账号"))&&
         (ques.includes("不")||ques.includes("错")||ques.includes("无")||ques.includes("改")||ques.includes("过期")||ques.includes("失败")||ques.includes("没")||ques.includes("变")||ques.includes("换")))
-        ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")||ques.includes("验证码")){
+        ||ques.includes("风险")||ques.includes("异常")||ques.includes("失效")||ques.includes("之前")||ques.includes("以前")||ques.includes("上次")||ques.includes("上回")||ques.includes("拍过")||ques.includes("重新")||ques.includes("还可以")||ques.includes("还能")){
             if(ques.includes("1.之前账号异常")){
                 回答list.push(NO_REPLY);
             }
@@ -231,9 +255,13 @@ function getAnswer(ques){
                 回答list.push("1.之前账号异常，新账号"+utils.getPhone()+" 密码aaaa99。关注本闲鱼号，即可永久享受PLUS会员！[比心][比心]\n2.确认下账号密码有没有输错\n3.确认下载的官方APP-“麦德龙”，不是英文\"METRO\"那个");
             }
         }
-        else if(ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
+        else if(ques.includes("plus")||ques.includes("puls")||ques.includes("会员")||ques.includes("付费")||ques.includes("价格")||ques.includes("原价")||ques.includes("开通")||ques.includes("摇")||ques.includes("晃")||ques.includes("弹出")||ques.includes("不是")||ques.includes("用不了")||ques.includes("没有")||ques.includes("没出")||ques.includes("不出")||ques.includes("出不来")||ques.includes("出不了")
+        ||ques.includes("折扣")||ques.includes("打折")||ques.includes("黑卡")||ques.includes("会员码")||ques.includes("二维码")){
+            回答list.push("是PLUS卡，放心！【看商品介绍最后一张图按图操作】，出现PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受PLUS会员价，进店、收营员结帐畅通无阻！\n(界面存在'去升级/立即开通'不用管, PLUS附属卡都会这么显示！实在不放心就把商品加入购物车结算可以看到是折扣价。)");
+        }
+        else if(ques.includes("以后")||ques.includes("多次")||ques.includes("到期")||ques.includes("有效期")||ques.includes("永久")||ques.includes("多久")||ques.includes("一直")||ques.includes("年卡")
         ||ques.includes("一次")||ques.includes("1次")||ques.includes("次卡")||ques.includes("午")||ques.includes("时间")||ques.includes("天")||ques.includes("现在")||ques.includes("马上")){
-            回答list.push("先关注我然后直接拍，即可0.1元一直使用（一年以上）。拍下发送账号，可以随时登录，也可以提前登录。永久享受PLUS会员！以后登录有问题找我免费发新账号。");
+            回答list.push("本闲鱼长期维护账号密码，先关注我拍下即可一直使用（一年以上）。拍下发送账号，可以立即登录/随时登录/以后多次登录。永久享受PLUS会员！以后登录有问题找我免费发新账号。");
         }
         else if(((ques.includes("借用")||ques.includes("你的")||ques.includes("你发的")||ques.includes("我的")||ques.includes("你自己"))&&ques.includes("号"))||ques.includes("副卡")||ques.includes("多人")||ques.includes("其他人")||ques.includes("别人")||ques.includes("别的人")){
             回答list.push("是的，用我的账号(副卡)登录，跟自己开通199一样的，只是没有积分");
@@ -242,9 +270,9 @@ function getAnswer(ques){
             回答list.push("一般不会登出，如果登出了重新登录即可。万一登录不上来找我就行。");
         }
         else if((ques.includes("付钱")||ques.includes("付款")||ques.includes("微信")||ques.includes("支付宝"))&&!ques.includes("待付款")&&!ques.includes("我已付款")){
-            回答list.push("付款是用自己的微信支付宝的付款码");
+            回答list.push("付款是用自己的vx zfb结帐哈，与麦德龙app没有绑定关系");
         }
-        else if((ques.includes("独")||ques.includes("个人"))&&ques.includes("号")){
+        else if((ques.includes("独")||ques.includes("个人")||ques.includes("共享"))&&ques.includes("号")){
             回答list.push("不是单独/个人账号，直接用我的账号登录，跟自己开通199一样的");
         }
         else if((ques.includes("这样"))&&(ques.includes("行")||ques.includes("可以")||ques.includes("能")||ques.includes("对"))){
@@ -258,7 +286,7 @@ function getAnswer(ques){
             ||ques.includes("0.1")||ques.includes("0.01")){
             回答list.push("是的，直接拍吧");
         }
-        else if(ques.includes("本人")||ques.includes("带人")||ques.includes("几个人")||ques.includes("多少人")){
+        else if(ques.includes("本人")||ques.includes("带人")||ques.includes("带朋友")||ques.includes("带别人")||ques.includes("带家人")||ques.includes("带别")||ques.includes("带其")||ques.includes("几个人")||ques.includes("多少人")){
             回答list.push("账号登录后可以带其他人进店，不需要每人都有会员，也不核对照片");
         }
         else if(ques.includes("进店")){
@@ -270,8 +298,8 @@ function getAnswer(ques){
         else if(ques.includes("小程序")||ques.includes("app")||ques.includes("下载")){
             回答list.push("不支持小程序，因为需要发验证码绑定，还是麻烦下载官方APP-“麦德龙”，不是英文\"METRO\"那个哈");
         }
-        else if(ques.includes("停车")||ques.includes("车牌")){
-            回答list.push("每个店情况不同，结帐后问下收营员；如果需要绑定车牌则不能免费停车。不用绑定车牌的话一般是拿[结账单]在出口处登记车牌免费停。具体以咨询店员为准。");
+        else if(ques.includes("停车")||ques.includes("车牌")||ques.includes("验证码")){
+            回答list.push("登录不需要验证码，登录页面右上角密码登录。停车每个店情况不同，结帐后问下收营员；如果需要绑定车牌则不能免费停车，我也收不了验证码。不用绑定车牌的话一般是拿[结账单]在出口处登记车牌免费停。具体以咨询店员为准。");
         }
         else if(ques.includes("券") || ques.includes("卷")){
             回答list.push("优惠券都可用，自己在app-我的-常用工具-领券中心领取，每日9点 14点限量开抢，一般半小时就没了");
@@ -285,17 +313,14 @@ function getAnswer(ques){
             ques.includes("你好")||ques.includes("您好")||ques.includes("可以")||ques.includes("现在有")||
             ques.includes("嗨")||ques.includes("哈喽")||ques.includes("hi")||ques.includes("hello")||ques.includes("Hi")||ques.includes("Hello")||ques.includes("nihao")){
                 回答list.push("您好，在的，线上线下全国通用，不限门店，麦德龙PLUS会员，享受PLUS折扣价。");
-                回答list.push("先关我然后直接拍，粉丝0.1元（关注后自动改价）;自动发账号密码，永久使用，不限次数！"); 
-        }
-        else if(ques.includes("plus")||ques.includes("会员")){
-            回答list.push("是PLUS卡，放心！打开麦德龙APP，手机摇一摇，弹出PLUS会员卡；显示附属卡、PLUS会员有效期；有了它，享受PLUS会员价，进店、收营员结帐畅通无阻！\n(界面存在'去升级/立即开通'不用管, PLUS附属卡都会这么显示)");
+                回答list.push("先关注我然后直接拍（粉丝关注后自动改价0.1元） => 自动发账号密码，永久使用，不限次数！"); 
         }
         else if(ques=="好"||ques.includes("好的")||ques.includes("好滴")||ques.includes("好嘞")||ques.includes("谢")||ques.includes("ok")||ques.includes("OK")||ques.includes("Ok")||ques.includes("好呢")||ques.includes("嗯")||
         ques.includes("好了")||ques.includes("行了")||ques.includes("关注啦")||ques.includes("关注了")||ques.includes("啦")||ques.includes("可以了")||ques.includes("成功")||ques.includes("已关注")||ques.includes("收到")){
             回答list.push("好滴[比心][比心]");
         }
         else{
-            回答list.push("先关注本闲鱼号，然后直接拍，粉丝0.1元（关注后自动改价）永久使用，不限次数！"); 
+            回答list.push("【自动回复】先关注本闲鱼号，然后直接拍 => 自动发账号密码，永久使用，不限次数！"); 
         }
     }
     catch (error) {
